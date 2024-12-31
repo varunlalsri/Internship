@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Page</title>
+</head>
+<body>
+
+  <div id="dynamic-content"></div>
+
+  <script>
+    // Example JSON object
+    const data = {
+      "pageTitle": "Dynamic Page",
+      "elements": [
+        {
+          "type": "text",
+          "content": "Welcome to the dynamic page"
+        },
+        {
+          "type": "button",
+          "text": "Click Me",
+          "action": "alert('Button Clicked!')"
+        },
+        {
+          "type": "image",
+          "src": "image_url.jpg",
+          "alt": "Image description"
+        }
+      ]
+    };
+
+    // Set page title
+    document.title = data.pageTitle;
+
+    // Function to render elements dynamically
+    function renderElements(elements) {
+      const container = document.getElementById('dynamic-content');
+      elements.forEach(element => {
+        let el;
+        switch (element.type) {
+          case 'text':
+            el = document.createElement('p');
+            el.innerText = element.content;
+            break;
+          case 'button':
+            el = document.createElement('button');
+            el.innerText = element.text;
+            el.onclick = function() { eval(element.action); };
+            break;
+          case 'image':
+            el = document.createElement('img');
+            el.src = element.src;
+            el.alt = element.alt;
+            break;
+        }
+        container.appendChild(el);
+      });
+    }
+
+    // Render the elements from JSON
+    renderElements(data.elements);
+  </script>
+  
+</body>
+</html>
